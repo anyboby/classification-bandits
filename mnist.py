@@ -20,6 +20,17 @@ import urllib.request
 
 _DATA = "/tmp/jax_example_data/"
 
+_LABEL_LEGEND = {0 : "0",
+                 1 : "1",
+                 2 : "2",
+                 3 : "3",
+                 4 : "4",
+                 5 : "5",
+                 6 : "6",
+                 7 : "7",
+                 8 : "8",
+                 9 : "9",}
+
 def _download(url, filename):
   """Download a url to a file in the JAX data temp directory."""
   if not path.exists(_DATA):
@@ -96,6 +107,7 @@ class MNISTBandit(base.Environment):
 
     self._total_regret = 0.
     self._optimal_return = 1.
+    self._label_legend = _LABEL_LEGEND
 
     self.bsuite_num_episodes = sweep.NUM_EPISODES
 

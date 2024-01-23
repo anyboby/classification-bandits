@@ -20,6 +20,17 @@ import urllib.request
 
 _DATA = "/tmp/jax_example_data_fashionmnist/"
 
+_LABEL_LEGEND = {0 : "T-shirt/top",
+                 1 : "Trouser",
+                 2 : "Pullover",
+                 3 : "Dress",
+                 4 : "Coat",
+                 5 : "Sandal",
+                 6 : "Shirt",
+                 7 : "Sneaker",
+                 8 : "Bag",
+                 9 : "Ankleboot",}
+
 def _download(url, filename):
   """Download a url to a file in the JAX data temp directory."""
   if not path.exists(_DATA):
@@ -93,6 +104,8 @@ class FashionMNISTBandit(base.Environment):
     self._rng = np.random.RandomState(seed)
     self._correct_label = None
 
+    self._label_legend = _LABEL_LEGEND
+    
     self._total_regret = 0.
     self._optimal_return = 1.
 
