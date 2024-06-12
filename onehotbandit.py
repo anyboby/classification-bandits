@@ -16,7 +16,7 @@ _LABEL_LEGEND = {0 : "Left",
 class OneHotBandit(base.Environment):
   """1-Dimensional context bandit with 2 arms."""
 
-  def __init__(self, n_states=10, seed=0, fraction=1.0):
+  def __init__(self, n_states=32, seed=0, fraction=1.0):
     """
     """
     super().__init__()
@@ -26,7 +26,7 @@ class OneHotBandit(base.Environment):
 
     self._states = np.eye(n_states)/10
     self._stateshape = (n_states,)
-    self._labels = np.random.randint(0,1, size=(n_states, 1))
+    self._labels = np.random.randint(0,2, size=(n_states, 1))
 
     self._rng = np.random.RandomState(seed)
     self._correct_label = None
@@ -49,7 +49,7 @@ class OneHotBandit(base.Environment):
   def _step(self, action: int) -> dm_env.TimeStep:
     """+0.1/-0.1 for correct/incorrect guesses. This also terminates the episode."""
     correct = action == self._correct_label
-    reward = 0.01 if correct else -0.01
+    reward = 1.0 if correct else 0.1
     self._total_regret += self._optimal_return - reward
     observation = np.zeros(shape=self._stateshape, dtype=np.float32)
     return dm_env.termination(reward=reward, observation=observation)
