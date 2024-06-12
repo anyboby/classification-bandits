@@ -49,7 +49,7 @@ class OneDBandit(base.Environment):
   def _step(self, action: int) -> dm_env.TimeStep:
     """+0.1/-0.1 for correct/incorrect guesses. This also terminates the episode."""
     correct = action == self._correct_label
-    reward = 0.01 if correct else -0.01
+    reward = 1.0 if correct else -1.0
     self._total_regret += self._optimal_return - reward
     observation = np.zeros(shape=self._stateshape, dtype=np.float32)
     return dm_env.termination(reward=reward, observation=observation)
